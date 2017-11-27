@@ -154,25 +154,25 @@ static CPUGraph *create_gui(XfcePanelPlugin *plugin) {
                       color: white; \
                     } \
           label#p0  { background: green; } \
-          label#p1  { background: linear-gradient(to right, green, #FF1A00); } \
-          label#p2  { background: linear-gradient(to right, green, #FF3500); } \
-          label#p3  { background: linear-gradient(to right, green, #FF5000); } \
-          label#p4  { background: linear-gradient(to right, green, #FF6B00); } \
-          label#p5  { background: linear-gradient(to right, green, #FF8600); } \
-          label#p6  { background: linear-gradient(to right, green, #FFA100); } \
-          label#p7  { background: linear-gradient(to right, green, #FFBB00); } \
-          label#p8  { background: linear-gradient(to right, green, #FFD600); } \
-          label#p9  { background: linear-gradient(to right, green, #FFF100); } \
-          label#p10 { background: linear-gradient(to right, green, #F1FF00); } \
-          label#p11 { background: linear-gradient(to right, green, #D6FF00); } \
-          label#p12 { background: linear-gradient(to right, green, #BBFF00); } \
-          label#p13 { background: linear-gradient(to right, green, #A1FF00); } \
-          label#p14 { background: linear-gradient(to right, green, #86FF00); } \
-          label#p15 { background: linear-gradient(to right, green, #6BFF00); } \
-          label#p16 { background: linear-gradient(to right, green, #50FF00); } \
-          label#p17 { background: linear-gradient(to right, green, #35FF00); } \
-          label#p18 { background: linear-gradient(to right, green, #1AFF00); } \
-          label#p19 { background: linear-gradient(to right, green, #00FF00); } \
+          label#p1  { background: linear-gradient(to right, green, #1AFF00); } \
+          label#p2  { background: linear-gradient(to right, green, #35FF00); } \
+          label#p3  { background: linear-gradient(to right, green, #50FF00); } \
+          label#p4  { background: linear-gradient(to right, green, #6BFF00); } \
+          label#p5  { background: linear-gradient(to right, green, #86FF00); } \
+          label#p6  { background: linear-gradient(to right, green, #A1FF00); } \
+          label#p7  { background: linear-gradient(to right, green, #BBFF00); } \
+          label#p8  { background: linear-gradient(to right, green, #D6FF00); } \
+          label#p9  { background: linear-gradient(to right, green, #F1FF00); } \
+          label#p10 { background: linear-gradient(to right, green, #FFF100); } \
+          label#p11 { background: linear-gradient(to right, green, #FFD600); } \
+          label#p12 { background: linear-gradient(to right, green, #FFBB00); } \
+          label#p13 { background: linear-gradient(to right, green, #FFA100); } \
+          label#p14 { background: linear-gradient(to right, green, #FF8600); } \
+          label#p15 { background: linear-gradient(to right, green, #FF6B00); } \
+          label#p16 { background: linear-gradient(to right, green, #FF5000); } \
+          label#p17 { background: linear-gradient(to right, green, #FF3500); } \
+          label#p18 { background: linear-gradient(to right, green, #FF1A00); } \
+          label#p19 { background: linear-gradient(to right, green, #FF0000); } \
           label#p20 { background: red; } \
           ",
           -1, NULL);
