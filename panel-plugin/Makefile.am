@@ -1,18 +1,16 @@
 plugindir = $(libdir)/xfce4/panel/plugins
-plugin_LTLIBRARIES = libcpugraph.la
+plugin_LTLIBRARIES = libappletcpu.la
 
-libcpugraph_la_CFLAGS =					\
+libappletcpu_la_CFLAGS =					\
 	-DPACKAGE_LOCALE_DIR=\"$(localedir)\"			\
 	@LIBXFCE4UI_CFLAGS@					\
 	@LIBXFCE4PANEL_CFLAGS@
 
-libcpugraph_la_LIBADD =					\
+libappletcpu_la_LIBADD =					\
 	@LIBXFCE4UI_LIBS@					\
 	@LIBXFCE4PANEL_LIBS@
 
-libcpugraph_la_SOURCES =                                 \
-	mode.c                                                  \
-	mode.h                                                  \
+libappletcpu_la_SOURCES =                                 \
 	cpu.c                                                   \
 	cpu.h                                                   \
 	os.c                                                    \
@@ -22,7 +20,7 @@ libcpugraph_la_SOURCES =                                 \
 	settings.c                                              \
 	settings.h
 
-libcpugraph_la_LDFLAGS = \
+libappletcpu_la_LDFLAGS = \
 	-avoid-version \
 	-module \
 	-no-undefined \
@@ -31,12 +29,14 @@ libcpugraph_la_LDFLAGS = \
 
 # .desktop file
 #
-desktop_in_files = cpugraph.desktop.in
+desktop_in_files = applet-cpu.desktop.in
 
 desktopdir = $(datadir)/xfce4/panel/plugins
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
-@INTLTOOL_DESKTOP_RULE@
 
 EXTRA_DIST = $(desktop_in_files)
 
 DISTCLEANFILES = $(desktop_DATA)
+
+%desktop: %desktop.in
+	cp $< $@

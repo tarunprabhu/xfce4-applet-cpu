@@ -5,14 +5,14 @@ dnl
 dnl 2004 Alexander Nordfelth <alex.nordfelth@telia.com>
 dnl
 
-m4_define([cpugraph_version],[1.0.5])
+m4_define([appletcpu_version],[1.0.5])
 
-AC_INIT([xfce4-cpugraph-plugin], [cpugraph_version],
-	[goodies-dev@xfce.org])
+AC_INIT([xfce4-applet-cpu], [appletcpu_version],
+	[tarun.prabhu@gmail.com])
 AC_USE_SYSTEM_EXTENSIONS()
 
-CPUGRAPH_VERSION=cpugraph_version()
-AM_INIT_AUTOMAKE([xfce4-cpugraph-plugin], [$CPUGRAPH_VERSION])
+APPLETCPU_VERSION=appletcpu_version()
+AM_INIT_AUTOMAKE([xfce4-applet-cpu], [$APPLETCPU_VERSION])
 AM_CONFIG_HEADER([config.h])
 
 AM_MAINTAINER_MODE
@@ -20,7 +20,6 @@ AM_MAINTAINER_MODE
 dnl Check for basic programs
 AC_PROG_CC
 AC_PROG_INSTALL
-AC_PROG_INTLTOOL
 AM_PROG_CC_C_O
 
 dnl Initialize libtool
@@ -31,12 +30,8 @@ dnl Check for standard header files
 AC_HEADER_STDC
 
 dnl configure the panel plugin
-XDT_CHECK_PACKAGE([LIBXFCE4UI], [libxfce4ui-1], [4.8.0])
-XDT_CHECK_PACKAGE([LIBXFCE4PANEL], [libxfce4panel-1.0], [4.8.0])
-XDT_CHECK_PACKAGE([GTK], [gtk+-2.0], [2.12.0])
-
-dnl translations
-XDT_I18N([@LINGUAS@])
+XDT_CHECK_PACKAGE([LIBXFCE4UI], [libxfce4ui-2], [4.12.0])
+XDT_CHECK_PACKAGE([LIBXFCE4PANEL], [libxfce4panel-2.0], [4.12.0])
 
 dnl Check for debugging support
 XDT_FEATURE_DEBUG()
@@ -44,9 +39,4 @@ XDT_FEATURE_DEBUG()
 AC_OUTPUT([
 Makefile
 panel-plugin/Makefile
-icons/Makefile
-icons/16x16/Makefile
-icons/22x22/Makefile
-icons/48x48/Makefile
-po/Makefile.in
 ])

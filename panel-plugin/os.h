@@ -1,5 +1,5 @@
 /*  os.h
- *  Part of xfce4-cpugraph-plugin
+ *  Part of xfce4-applet-cpu
  *
  *  Copyright (c) Alexander Nordfelth <alex.nordfelth@telia.com>
  *  Copyright (c) gatopeich <gatoguan-os@yahoo.com>
@@ -35,7 +35,14 @@ typedef struct
 	guint64 previous_total;
 } CpuData;
 
+typedef struct {
+  gint64 temp;
+  gchar file[PATH_MAX];
+} TemperatureData;
+
 guint detect_cpu_number();
 gboolean read_cpu_data( CpuData *data, guint nb_cpu );
+guint init_temperature_data();
+gboolean read_temperature_data(TemperatureData* data, guint nr_temps);
 
 #endif /* !_XFCE_OS_H */
