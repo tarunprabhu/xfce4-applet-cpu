@@ -35,7 +35,8 @@
 static void draw_graph_normal( CPUGraph *base, GtkWidget *da, gint w, gint h );
 static void cpugraph_construct(XfcePanelPlugin *plugin);
 static CPUGraph *create_gui(XfcePanelPlugin *plugin);
-static guint init_cpu_data(CpuData **data);
+static guint init_cpu_data(CPUData **data);
+static guint init_temp_data(TemperatureData* data);
 static void shutdown(XfcePanelPlugin *plugin, CPUGraph *base);
 static gboolean size_cb(XfcePanelPlugin *plugin, guint size, CPUGraph *base);
 static void about_cb(XfcePanelPlugin *plugin, CPUGraph *base);
@@ -78,9 +79,9 @@ static CPUGraph *create_gui(XfcePanelPlugin *plugin) {
 
   orientation = xfce_panel_plugin_get_orientation(plugin);
   if((base->nr_cores = init_cpu_data(&base->cpu_data)) == 0)
-    fprintf(stderr, "Cannot init cpu data !\n");
-  if((base->nr_temps = init_temperature_data(base)) == 0)
-    fprintf(stderr, "Cannot init temperature data !\n");
+    fprintf(stderr, "Cannot init cpu data\n");
+  if((base->nr_temps = init_temp_data(base->temp_data)) == 0)
+    fprintf(stderr, "Cannot init temperature data\n");
 
   base->plugin = plugin;
 
@@ -98,25 +99,12 @@ static CPUGraph *create_gui(XfcePanelPlugin *plugin) {
   base->grid = gtk_grid_new();
   gtk_box_pack_start(GTK_BOX(base->box), base->grid, TRUE, TRUE, 0);
 
-  /* Title label */
-  base->title = gtk_label_new("CPU");
+  /* Title image */
+  base->title = gtk_image_new_from_icon_name("xfce4-applet-cpu",
+                                             GTK_ICON_SIZE_LARGE_TOOLBAR);
   /* FIXME: Make title and font configurable */
   gtk_grid_attach(GTK_GRID(base->grid), base->title, 0, 0, 1, 1);
   gtk_widget_show(base->title);
-  css_provider = gtk_css_provider_new();
-  gtk_style_context_add_provider(GTK_STYLE_CONTEXT(gtk_widget_get_style_context(
-                                     GTK_WIDGET(base->title))),
-                                 GTK_STYLE_PROVIDER(css_provider),
-                                 GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
-  g_object_set_data(G_OBJECT(base->title), "css_provider",
-                    css_provider);
-  gtk_css_provider_load_from_data(
-      g_object_get_data(G_OBJECT(base->title), "css_provider"),
-      "label { font-weight: Bold; \
-               font-size: 7pt;                       \
-               font-family: \"Bitstream Vera Sans\"; \
-               color: #696969; \
-             }", -1, NULL);
 
   /* Graph */
   base->frame = gtk_frame_new(NULL);
@@ -153,27 +141,27 @@ static CPUGraph *create_gui(XfcePanelPlugin *plugin) {
                       padding: 1px; \
                       color: white; \
                     } \
-          label#p0  { background: green; } \
-          label#p1  { background: linear-gradient(to right, green, #1AFF00); } \
-          label#p2  { background: linear-gradient(to right, green, #35FF00); } \
-          label#p3  { background: linear-gradient(to right, green, #50FF00); } \
-          label#p4  { background: linear-gradient(to right, green, #6BFF00); } \
-          label#p5  { background: linear-gradient(to right, green, #86FF00); } \
-          label#p6  { background: linear-gradient(to right, green, #A1FF00); } \
-          label#p7  { background: linear-gradient(to right, green, #BBFF00); } \
-          label#p8  { background: linear-gradient(to right, green, #D6FF00); } \
-          label#p9  { background: linear-gradient(to right, green, #F1FF00); } \
-          label#p10 { background: linear-gradient(to right, green, #FFF100); } \
-          label#p11 { background: linear-gradient(to right, green, #FFD600); } \
-          label#p12 { background: linear-gradient(to right, green, #FFBB00); } \
-          label#p13 { background: linear-gradient(to right, green, #FFA100); } \
-          label#p14 { background: linear-gradient(to right, green, #FF8600); } \
-          label#p15 { background: linear-gradient(to right, green, #FF6B00); } \
-          label#p16 { background: linear-gradient(to right, green, #FF5000); } \
-          label#p17 { background: linear-gradient(to right, green, #FF3500); } \
-          label#p18 { background: linear-gradient(to right, green, #FF1A00); } \
-          label#p19 { background: linear-gradient(to right, green, #FF0000); } \
-          label#p20 { background: red; } \
+        label#p0  { background: #00ff00; } \
+        label#p1  { background: linear-gradient(to right, #00ff00, #1AFF00); } \
+        label#p2  { background: linear-gradient(to right, #00ff00, #35FF00); } \
+        label#p3  { background: linear-gradient(to right, #00ff00, #50FF00); } \
+        label#p4  { background: linear-gradient(to right, #00ff00, #6BFF00); } \
+        label#p5  { background: linear-gradient(to right, #00ff00, #86FF00); } \
+        label#p6  { background: linear-gradient(to right, #00ff00, #A1FF00); } \
+        label#p7  { background: linear-gradient(to right, #00ff00, #BBFF00); } \
+        label#p8  { background: linear-gradient(to right, #00ff00, #D6FF00); } \
+        label#p9  { background: linear-gradient(to right, #00ff00, #F1FF00); } \
+        label#p10 { background: linear-gradient(to right, #00ff00, #FFF100); } \
+        label#p11 { background: linear-gradient(to right, #00ff00, #FFD600); } \
+        label#p12 { background: linear-gradient(to right, #00ff00, #FFBB00); } \
+        label#p13 { background: linear-gradient(to right, #00ff00, #FFA100); } \
+        label#p14 { background: linear-gradient(to right, #00ff00, #FF8600); } \
+        label#p15 { background: linear-gradient(to right, #00ff00, #FF6B00); } \
+        label#p16 { background: linear-gradient(to right, #00ff00, #FF5000); } \
+        label#p17 { background: linear-gradient(to right, #00ff00, #FF3500); } \
+        label#p18 { background: linear-gradient(to right, #00ff00, #FF1A00); } \
+        label#p19 { background: linear-gradient(to right, #00ff00, #FF0000); } \
+        label#p20 { background: #ff0000; } \
           ",
           -1, NULL);
     }
@@ -211,16 +199,20 @@ static void about_cb(XfcePanelPlugin *plugin, CPUGraph *base) {
     g_object_unref(G_OBJECT(icon));
 }
 
-guint init_cpu_data(CpuData **data) {
+static guint init_cpu_data(CPUData **data) {
   guint cpuNr;
 
   cpuNr = detect_cpu_number();
   if (cpuNr == 0)
     return 0;
 
-  *data = (CpuData *)g_malloc0((cpuNr + 1) * sizeof(CpuData));
+  *data = (CPUData *)g_malloc0((cpuNr + 1) * sizeof(CPUData));
 
   return cpuNr;
+}
+
+static guint init_temp_data(TemperatureData* data) {
+  return init_temperature_data(data);  
 }
 
 static void shutdown(XfcePanelPlugin *plugin, CPUGraph *base) {

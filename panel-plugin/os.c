@@ -27,7 +27,6 @@
 #include <config.h>
 #endif
 
-#include "cpu.h"
 #include "os.h"
 
 #include <stdio.h>
@@ -56,7 +55,7 @@ guint detect_cpu_number() {
   return nb_lines > 1 ? nb_lines - 1 : 0;
 }
 
-gboolean read_cpu_data(CpuData *data, guint nb_cpu) {
+gboolean read_cpu_data(CPUData *data, guint nb_cpu) {
   FILE *fStat;
   gchar cpuStr[PROCMAXLNLEN];
   gulong user, nice, system, idle, used, total, iowait, irq, softirq;
@@ -91,7 +90,7 @@ gboolean read_cpu_data(CpuData *data, guint nb_cpu) {
   return TRUE;
 }
 
-guint init_temperature_data(CPUGraph* base) {
+guint init_temperature_data(TemperatureData* data) {
   const char* dir = "/sys/class/thermal";
   char path[PATH_MAX];
   DIR *d = NULL;
@@ -106,9 +105,7 @@ guint init_temperature_data(CPUGraph* base) {
     while((ent = readdir(d))) {
       if(ent->d_name[0] == '.')
         continue;
-      printf("ent: %s\n", ent->d_name);
-      printf("%p: %p\n\n", (void*)ent->d_name, strstr(ent->d_name, "thermal"));
-      if(strstr(ent->d_name, "thermal") == ent->d_name) {
+      if(strstr(ent->d_name, "thermal_zone") == ent->d_name) {
         snprintf(path, PATH_MAX, "%s/%s/type", dir, ent->d_name);
         if(fp = fopen(path, "r")) {
           fgets(line, sizeof(line), fp);
@@ -116,8 +113,9 @@ guint init_temperature_data(CPUGraph* base) {
           if(strcmp(line, "x86_pkg_temp\n") == 0) {
             if(nr_temps < MAX_TEMPERATURES) {
               snprintf(path, PATH_MAX, "%s/%s/temp", dir, ent->d_name);
-              g_strlcpy(base->temp_data[nr_temps].file, path, PATH_MAX);
-              base->temp_data[nr_temps].temp = -1;
+              g_strlcpy(data->file, path, PATH_MAX);
+              data->temp = -1;
+              data++;
               nr_temps += 1;
             }
           }

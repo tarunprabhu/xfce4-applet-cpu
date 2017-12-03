@@ -33,9 +33,6 @@
 
 #include "os.h"
 
-#define BORDER  8
-#define MAX_TEMPERATURES 8
-
 typedef struct
 {
 	/* GUI components */
@@ -62,7 +59,7 @@ typedef struct
 	guint timeout_id;
 	guint *history;
 	gssize history_size;
-  CpuData *cpu_data;
+  CPUData *cpu_data;
   TemperatureData temp_data[MAX_TEMPERATURES];
 } CPUGraph;
 

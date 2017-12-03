@@ -25,6 +25,7 @@
 #define _XFCE_OS_H_
 
 #define CPU_SCALE 256
+#define MAX_TEMPERATURES 8
 
 #include <glib.h>
 
@@ -33,7 +34,7 @@ typedef struct
 	guint load;
 	guint64 previous_used;
 	guint64 previous_total;
-} CpuData;
+} CPUData;
 
 typedef struct {
   gint64 temp;
@@ -41,8 +42,8 @@ typedef struct {
 } TemperatureData;
 
 guint detect_cpu_number();
-gboolean read_cpu_data( CpuData *data, guint nb_cpu );
-guint init_temperature_data();
+gboolean read_cpu_data( CPUData *data, guint nb_cpu );
+guint init_temperature_data(TemperatureData* data);
 gboolean read_temperature_data(TemperatureData* data, guint nr_temps);
 
 #endif /* !_XFCE_OS_H */

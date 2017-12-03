@@ -22,11 +22,12 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 #include "properties.h"
-#include "cpu.h"
 #include "settings.h"
 
 #include <glib/gprintf.h>
 #include <libxfce4ui/libxfce4ui.h>
+
+#define BORDER  8
 
 static GtkBox *create_tab();
 static GtkWidget* create_grid();
@@ -56,7 +57,7 @@ void create_options(XfcePanelPlugin *plugin, CPUGraph *base) {
   xfce_panel_plugin_block_menu(plugin);
 
   dlg = xfce_titled_dialog_new_with_buttons(
-      _("CPU Monitor Properties"),
+      _("CPU Monitor Configuration"),
       GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(plugin))),
       GTK_DIALOG_DESTROY_WITH_PARENT,
       "gtk-close", GTK_RESPONSE_OK, NULL);
