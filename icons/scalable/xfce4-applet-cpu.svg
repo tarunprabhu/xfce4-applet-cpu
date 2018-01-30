@@ -25,7 +25,7 @@
      inkscape:pageshadow="2"
      inkscape:zoom="16"
      inkscape:cx="19.6875"
-     inkscape:cy="18.486145"
+     inkscape:cy="20.0625"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -67,14 +67,16 @@
        y="5.1208792" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:40px;line-height:25px;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="-11"
-       y="5"
-       id="text5199"><tspan
+       style="font-style:normal;font-weight:normal;font-size:16.38287163px;line-height:25.59823608px;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.02392948px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="7.2874985"
+       y="19.503325"
+       id="text5199"
+       transform="scale(1.0325956,0.96843334)"><tspan
          sodipodi:role="line"
          id="tspan5197"
-         x="-11"
-         y="27.890625" /></text>
+         x="7.2874985"
+         y="19.503325"
+         style="font-size:8.19143581px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.02392948px;stroke-opacity:1">CPU</tspan></text>
     <rect
        style="opacity:1;vector-effect:none;fill:#999999;fill-opacity:1;fill-rule:evenodd;stroke:#808080;stroke-width:0.2504724;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect5067-7"
