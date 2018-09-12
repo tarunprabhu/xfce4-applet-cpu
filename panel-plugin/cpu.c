@@ -317,25 +317,25 @@ static void update_tooltip(CPUGraph *base) {
   int i, curr;
 
   curr = 0;
-  curr = g_snprintf(tooltip + curr, sizeof(tooltip) - curr,
-                    "Utilization\n\n");
+  curr = g_snprintf(tooltip + curr, sizeof(tooltip) - curr, "<tt>");
   for(i = 0; i < base->nr_cores; i++)
     if(curr < sizeof(tooltip))
       curr += g_snprintf(tooltip + curr, sizeof(tooltip) - curr,
-                         "Core %d: %u%%\n",
+                         "Core %2d  %3u%%\n",
                          i, (guint)base->cpu_data[i+1].load * 100 / CPU_SCALE);
   curr += g_snprintf(tooltip + curr, sizeof(tooltip) - curr,
-                     "---------------\nTotal: %u%%\n",
+                     "-------------\nTotal    %3u%%",
                      (guint)base->cpu_data[0].load * 100 / CPU_SCALE);
 
-  curr += g_snprintf(tooltip + curr, sizeof(tooltip) - curr, "\n");
-  for(i = 0; i < base->nr_temps; i++)
-    if(curr < sizeof(tooltip))
-      curr += g_snprintf(tooltip + curr, sizeof(tooltip) - curr,
-                         "Temp %d: %u°",
-                         i, base->temp_data[i].temp);
+  /* curr += g_snprintf(tooltip + curr, sizeof(tooltip) - curr, "\n"); */
+  /* for(i = 0; i < base->nr_temps; i++) */
+  /*   if(curr < sizeof(tooltip)) */
+  /*     curr += g_snprintf(tooltip + curr, sizeof(tooltip) - curr, */
+  /*                        "Temp %02d   %u°", */
+  /*                        i, base->temp_data[i].temp); */
+  curr += g_snprintf(tooltip + curr, sizeof(tooltip) - curr, "</tt>");
   
-  gtk_label_set_text(GTK_LABEL(base->tooltip_text), tooltip);
+  gtk_label_set_markup(GTK_LABEL(base->tooltip_text), tooltip);
 }
 
 static gboolean tooltip_cb(GtkWidget *widget, gint x, gint y, gboolean keyboard,
